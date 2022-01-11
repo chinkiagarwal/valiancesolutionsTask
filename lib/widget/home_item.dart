@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_assignment/views/character_detail_screen.dart';
 import 'package:flutter_assignment/model/rick_n_morty_character_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 
@@ -40,11 +44,22 @@ widget.itemPress();
 
                   Row(
                     children: [
-              // Image.network(
-              //   widget.homeItem.url!,
+
+                      Container(child: new Image.network(
+                        widget.homeItem.thumbnailUrl!,
+                        scale: 1.0,
+
+                      ),height: MediaQuery.of(context).size.height / 9,width: MediaQuery.of(context).size.height / 9,),
+
+                      // Container(child: WebView(initialUrl: "", onWebViewCreated: (WebViewController webViewController) {
+
+              // Image.memory(
+              //   ,
               //           height: MediaQuery.of(context).size.height / 9,
               //           width: MediaQuery.of(context).size.height / 9,
               //         ),
+
+
 
 
 Padding(padding: EdgeInsets.all(8.0)),
@@ -83,6 +98,7 @@ Padding(padding: EdgeInsets.all(8.0)),
                                 ],
                               ),
 
+
                             ],
                           ),
                         ),
@@ -115,6 +131,14 @@ Padding(padding: EdgeInsets.all(8.0)),
       ),
     );
     ;
+  }
+
+    photoUpload() async {
+    final ByteData imageData = await NetworkAssetBundle(Uri.parse("https://via.placeholder.com/150/92c952")).load("");
+    final Uint8List bytes = imageData.buffer.asUint8List();
+// display it with the Image.memory widget
+    Image.memory(bytes,height: MediaQuery.of(context).size.height / 9, width: MediaQuery.of(context).size.height / 9,);
+
   }
 
 
